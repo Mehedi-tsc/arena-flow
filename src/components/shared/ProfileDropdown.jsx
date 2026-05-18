@@ -1,5 +1,6 @@
 import {ArrowRightFromSquare, Gear, Persons} from "@gravity-ui/icons";
 import {Avatar, Dropdown, Label} from "@heroui/react";
+import Link from "next/link";
 
 const ProfileDropdown = () => {
     return (
@@ -31,24 +32,16 @@ const ProfileDropdown = () => {
           </div>
         </div>
         <Dropdown.Menu>
-          <Dropdown.Item id="dashboard" textValue="Dashboard">
-            <Label>Dashboard</Label>
+          <Dropdown.Item id="my-bookings" textValue="My Bookings">
+            <Link href={'/my-bookings'}><Label>My Bookings</Label></Link>
           </Dropdown.Item>
-          <Dropdown.Item id="profile" textValue="Profile">
-            <Label>Profile</Label>
+          <Dropdown.Item id="add-facility" textValue="Add Facility">
+            <Link href={'/add-facility'}><Label>Add Facility</Label></Link>
           </Dropdown.Item>
-          <Dropdown.Item id="settings" textValue="Settings">
-            <div className="flex w-full items-center justify-between gap-2">
-              <Label>Settings</Label>
-              <Gear className="size-3.5 text-muted" />
-            </div>
+          <Dropdown.Item id="manage-facilities" textValue="Manage My Facilities">
+            <Link href={'/manage-facilities'}><Label>Manage My Facilities</Label></Link>
           </Dropdown.Item>
-          <Dropdown.Item id="new-project" textValue="New project">
-            <div className="flex w-full items-center justify-between gap-2">
-              <Label>Create Team</Label>
-              <Persons className="size-3.5 text-muted" />
-            </div>
-          </Dropdown.Item>
+          
           <Dropdown.Item id="logout" textValue="Logout" variant="danger">
             <div className="flex w-full items-center justify-between gap-2">
               <Label>Log Out</Label>
