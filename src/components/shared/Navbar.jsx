@@ -65,7 +65,7 @@ export default function Navbar() {
           <div className="">
             <Image
               className=""
-              src='/logo-nav-1.png'
+              src='/logo-nav-3.png'
               alt="Nav-logo"
               width={200}
               height={80}
