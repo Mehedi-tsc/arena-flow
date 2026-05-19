@@ -4,10 +4,14 @@ import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import ProfileDropdown from "./ProfileDropdown";
+import { authClient } from "@/lib/auth-client";
 
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session } = authClient.useSession()
+  const user = session?.user
+  
   const links = <>
     <li>
       <Link href="/">Home</Link>
@@ -17,13 +21,13 @@ export default function Navbar() {
         All Facilities
       </Link>
     </li>
-    <li>
+    <li className={`${!user && 'hidden'}`}>
       <Link href="/my-bookings">My Bookings</Link>
     </li>
-    <li>
+    <li className={`${!user && 'hidden'}`}>
       <Link href="/add-facility">Add Facility </Link>
     </li>
-    <li>
+    <li className={`${!user && 'hidden'}`}>
       <Link href="/manage-facilities">Manage My Facilities</Link>
     </li>
   </>
@@ -77,9 +81,11 @@ export default function Navbar() {
           {links}
         </ul>
         <div className="hidden items-center gap-4 md:flex">
-          <Link href="#">Login</Link>
-          <Button>Sign Up</Button>
-          <ProfileDropdown/>
+
+          {
+            !user ? <Link href="/login"><Button>Login</Button></Link> : <ProfileDropdown />
+          }
+
         </div>
       </header>
       {isMenuOpen && (
@@ -87,11 +93,12 @@ export default function Navbar() {
           <ul className="flex flex-col gap-2 p-4">
             {links}
             <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-              <Link href="#" className="block py-2">
+              {
+                !user?<Link href="/login" className="block py-2">
                 Login
-              </Link>
-              <Button className="w-full">Sign Up</Button>
-              <ProfileDropdown/>
+              </Link>:<ProfileDropdown/>
+              }
+
             </li>
           </ul>
         </div>
