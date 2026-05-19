@@ -36,10 +36,10 @@ const RegisterPage = () => {
         
     };
     const HandlesignIn = async () => {
-        // const data = await authClient.signIn.social({
-        //     provider: "google",
-        //     callbackURL: '/',
-        // });
+        const data = await authClient.signIn.social({
+            provider: "google",
+            callbackURL: '/',
+        });
         
     };
     return (

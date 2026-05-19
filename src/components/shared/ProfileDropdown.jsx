@@ -27,10 +27,11 @@ const ProfileDropdown = () => {
         <Dropdown.Trigger className="rounded-full">
           <Avatar>
             <Avatar.Image
+              referrerPolicy="no-referrer"
               alt={user.name}
               src={user.image}
             />
-            <Avatar.Fallback delayMs={600}>{user.name.slice(0,2)}</Avatar.Fallback>
+            <Avatar.Fallback delayMs={600}>{user.name.slice(0, 2)}</Avatar.Fallback>
           </Avatar>
         </Dropdown.Trigger>
         <Dropdown.Popover>
@@ -38,10 +39,11 @@ const ProfileDropdown = () => {
             <div className="flex items-center gap-2">
               <Avatar size="sm">
                 <Avatar.Image
+                  referrerPolicy="no-referrer"
                   alt={user.name}
                   src={user.image}
                 />
-                <Avatar.Fallback delayMs={600}>JD</Avatar.Fallback>
+                <Avatar.Fallback delayMs={600}>{user.name.slice(0, 2)}</Avatar.Fallback>
               </Avatar>
               <div className="flex flex-col gap-0">
                 <p className="text-sm leading-5 font-medium">{user.name}</p>

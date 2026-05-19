@@ -5,29 +5,31 @@ import Image from "next/image";
 import Link from "next/link";
 import ProfileDropdown from "./ProfileDropdown";
 import { authClient } from "@/lib/auth-client";
+import { usePathname } from "next/navigation";
 
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session } = authClient.useSession()
   const user = session?.user
+  const pathName = usePathname()
   
   const links = <>
-    <li>
-      <Link href="/">Home</Link>
+    <li className={`${pathName === "/" && 'font-bold'}`}>
+      <Link href="/" >Home</Link>
     </li>
-    <li>
+    <li className={`${pathName === "/all-facilities" && 'font-bold'}`}>
       <Link href="/all-facilities">
         All Facilities
       </Link>
     </li>
-    <li className={`${!user && 'hidden'}`}>
+    <li className={`${!user && 'hidden'} ${pathName === "/my-bookings" && 'font-bold'}`}>
       <Link href="/my-bookings">My Bookings</Link>
     </li>
-    <li className={`${!user && 'hidden'}`}>
+    <li className={`${!user && 'hidden'} ${pathName === "/add-facility" && 'font-bold'} `}>
       <Link href="/add-facility">Add Facility </Link>
     </li>
-    <li className={`${!user && 'hidden'}`}>
+    <li className={`${!user && 'hidden'} ${pathName === "/manage-facilities" && 'font-bold'}`}>
       <Link href="/manage-facilities">Manage My Facilities</Link>
     </li>
   </>
