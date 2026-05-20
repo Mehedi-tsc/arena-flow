@@ -1,5 +1,6 @@
 
 
+import { DeleteFacilities } from "@/components/DeleteFacilities";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
@@ -105,9 +106,7 @@ const ManageFacilities = async () => {
                                         Edit
                                     </button>
 
-                                    <button className="bg-red-500 hover:bg-red-600 transition duration-300 text-white px-8 py-4 rounded-2xl font-semibold">
-                                        Delete
-                                    </button>
+                                    <DeleteFacilities facility={facility}/>
                                 </div>
                             </div>
                         </div>

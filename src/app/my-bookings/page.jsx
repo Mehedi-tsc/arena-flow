@@ -98,7 +98,7 @@ const MyBookings = async () => {
 
                                 {/* Cancel Button */}
                                 <div>
-                                    <BookingCanel id={booking._id}/>
+                                    <BookingCanel booking={booking}/>
                                 </div>
                             </div>
                         </div>

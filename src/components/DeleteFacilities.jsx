@@ -3,17 +3,17 @@
 import { AlertDialog, Button } from "@heroui/react";
 import { toast } from "react-toastify";
 
-export function BookingCanel({ booking }) {
-    const handelCancel = async () => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings/${booking._id}`, {
+export function DeleteFacilities({ facility }) {
+    const handelDelete = async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities/${facility._id}`, {
             method: "DELETE",
             headers: {
                 'content-type': 'application/json'
             }
         })
         const data = await res.json()
-        if(data){
-            toast.success("Booking Cancel Succesfully")
+        if (data) {
+            toast.success('Delete facility succesfully')
         }
         window.location.reload();
     }
@@ -21,7 +21,7 @@ export function BookingCanel({ booking }) {
     return (
         <AlertDialog>
             <Button className="bg-red-500 hover:bg-red-600 transition duration-300 text-white px-8 py-8 rounded-xl font-semibold text-xl">
-                Cancel Booking
+                Delete
             </Button>
             <AlertDialog.Backdrop>
                 <AlertDialog.Container>
@@ -29,17 +29,18 @@ export function BookingCanel({ booking }) {
                         <AlertDialog.CloseTrigger />
                         <AlertDialog.Header>
                             <AlertDialog.Icon status="danger" />
-                            <AlertDialog.Heading> Confirm Cancel Booking </AlertDialog.Heading>
+                            <AlertDialog.Heading> Confirm Delete Facility </AlertDialog.Heading>
                         </AlertDialog.Header>
                         <AlertDialog.Body>
                             <p>
-                                This will permanently Cancel <strong>{booking.facilityName}</strong> booking. This action cannot be undone.
+                                This will permanently delete <strong>{facility.facilityName}</strong> and all of its
+                                data. This action cannot be undone.
                             </p>
                         </AlertDialog.Body>
                         <AlertDialog.Footer>
 
-                            <Button onClick={handelCancel} slot="close" className="bg-red-500 hover:bg-red-600 transition duration-300 text-white px-8 py-8 rounded-xl font-semibold text-xl">
-                                Cancel
+                            <Button onClick={handelDelete} slot="close" className="bg-red-500 hover:bg-red-600 transition duration-300 text-white px-8 py-8 rounded-xl font-semibold text-xl">
+                                Delete
                             </Button>
                         </AlertDialog.Footer>
                     </AlertDialog.Dialog>
