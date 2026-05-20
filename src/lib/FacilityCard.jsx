@@ -62,7 +62,7 @@ const FacilityCard = ({ facility }) => {
                     </div>
 
                     {/* Button */}
-                    {user?<Link href={'/'}><button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition duration-300">
+                    {user?<Link href={`/facility/${facility._id}`}><button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition duration-300">
                         Book Now
                     </button></Link> : <Link href={'/login'}><button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition duration-300">
                         Book Now
