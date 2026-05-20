@@ -9,7 +9,7 @@ const FacilityDetails = async({params}) => {
    
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facility/${id}`)
     const facility = await res.json()
-    console.log(facility)
+    
     return (
         <div>
             <FacilityDetailsCard facility={facility}/>
