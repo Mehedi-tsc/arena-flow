@@ -12,12 +12,12 @@ const FacilityCard = ({ facility }) => {
     
     return (
         <div>
-            <div className="rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-200 ">
+            <div className="rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-200 lg:h-130 ">
 
                 {/* Image */}
                 <div className="relative">
                    <Image
-                   className="h-65"
+                   className="h-65 w-full"
                    src={facility.image}
                    alt={facility.facilityName}
                    width={400}

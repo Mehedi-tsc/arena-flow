@@ -1,9 +1,10 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Banner = () => {
     return (
         <div
-  className="hero min-h-screen"
+  className="hero min-h-screen "
   style={{
     backgroundImage:
       `url(/hero.jpg)`,
@@ -16,7 +17,9 @@ const Banner = () => {
       <p className="mb-5">
         ArenaFlow helps players find, compare, and book sports facilities instantly — from football grounds to swimming pools — anytime, anywhere..
       </p>
-      <button className="btn btn-primary rounded-full">Explore Facilities </button>
+      <Link href='/all-facilities'><button className="w-fit mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold p-3 rounded-xl transition duration-300">
+                        Explore Facilities
+                    </button></Link>
     </div>
   </div>
 </div>
