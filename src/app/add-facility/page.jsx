@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { FloppyDisk } from "@gravity-ui/icons";
 import {
   Button,
@@ -12,11 +13,29 @@ import {
   TextArea,
   TextField,
 } from "@heroui/react";
+import { useRouter } from "next/navigation";
 
 const AddFacilitiesPage = () => {
-  const onSubmit = (e) => {
+  const { data: session } = authClient.useSession()
+  const ownerEmail = session?.user?.email
+  const router = useRouter();
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const facilitiesData = {...Object.fromEntries(formData.entries()), ownerEmail}
+    // facilitiesData.ownerEmail= ownerEmail;
+    
+    const res =await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities`,{
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(facilitiesData),
+            
+    })
+    const result = await res.json()
+    router.push('/all-facilities')
+    return result;
   };
   return (
     <div className=" rounded-2xl bg-surface p-6 my-6 max-w-5xl mx-auto shadow-sm">
@@ -94,11 +113,11 @@ const AddFacilitiesPage = () => {
               <TextField
                 isRequired
                 name="description"
-                
+
               >
                 <Label>Description</Label>
                 <TextArea placeholder="Tell us about your facility..." variant="secondary" />
-                
+
                 <FieldError />
               </TextField>
             </Fieldset.Group>
@@ -107,7 +126,7 @@ const AddFacilitiesPage = () => {
                 <FloppyDisk />
                 Add Facility
               </Button>
-              
+
             </Fieldset.Actions>
           </Fieldset>
         </Form>
