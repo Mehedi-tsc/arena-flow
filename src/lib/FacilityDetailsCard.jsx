@@ -15,7 +15,7 @@ const FacilityBookingCard = ({ facility }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const bookingData = {...Object.fromEntries(formData.entries()), status:"pending", userId: userId}
+        const bookingData = {...Object.fromEntries(formData.entries()), status:"pending", userId: userId, image:facility.image}
         
 
 
