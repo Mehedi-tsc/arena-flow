@@ -20,7 +20,7 @@ export function DeleteFacilities({ facility }) {
 
     return (
         <AlertDialog>
-            <Button className="bg-red-500 hover:bg-red-600 transition duration-300 text-white px-8 py-8 rounded-xl font-semibold text-xl">
+            <Button className="bg-red-500 hover:bg-red-600 transition duration-300 text-white px-8 py-8 rounded-xl font-semibold text-xl min-w-32">
                 Delete
             </Button>
             <AlertDialog.Backdrop>

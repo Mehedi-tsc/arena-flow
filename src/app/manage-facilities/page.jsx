@@ -1,6 +1,8 @@
 
 
 import { DeleteFacilities } from "@/components/DeleteFacilities";
+import { EditFacilities } from "@/components/EditFacilities";
+
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
@@ -102,9 +104,10 @@ const ManageFacilities = async () => {
 
                                 {/* Action Buttons */}
                                 <div className="flex flex-col gap-4">
-                                    <button className="bg-green-500 hover:bg-green-600 transition duration-300 text-white px-8 py-4 rounded-2xl font-semibold">
+                                    {/* <button className="bg-green-500 hover:bg-green-600 transition duration-300 text-white px-8 py-4 rounded-2xl font-semibold">
                                         Edit
-                                    </button>
+                                    </button> */}
+                                    <EditFacilities facility={facility}/>
 
                                     <DeleteFacilities facility={facility}/>
                                 </div>
