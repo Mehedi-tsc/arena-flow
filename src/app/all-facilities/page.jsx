@@ -1,3 +1,4 @@
+import Filter from "@/components/Filter";
 import Search from "@/components/Search";
 import FacilityCard from "@/lib/FacilityCard";
 
@@ -5,9 +6,10 @@ import FacilityCard from "@/lib/FacilityCard";
 const AllFacilitiesPage = async ({searchParams}) => {
     const resolvedParams = await searchParams;
     const search = resolvedParams?.search || "";
+    const filter = resolvedParams?.filter || "";
     
     
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities?search=${search}`, 
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities?search=${search}&filter=${filter}`, 
         {cache: "no-store"}
     )
     const facilities = await res.json()
@@ -24,18 +26,7 @@ const AllFacilitiesPage = async ({searchParams}) => {
                     <Search/>
 
                     {/* Filter */}
-                    <select
-                        // value={sportType}
-                        // onChange={(e) => setSportType(e.target.value)}
-                        className="border border-gray-300 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        <option value="">All Sports</option>
-                        <option value="Football">Football</option>
-                        <option value="Cricket">Cricket</option>
-                        <option value="Swimming">Swimming</option>
-                        <option value="Badminton">Badminton</option>
-                        <option value="Rowing">Rowing</option>
-                    </select>
+                    <Filter/>
 
                 </div>
             </div>
