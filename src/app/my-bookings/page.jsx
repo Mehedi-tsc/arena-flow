@@ -1,6 +1,7 @@
 
 
 import { BookingCanel } from "@/components/BookingCancel";
+import EmptyBooking from "@/components/mybooking/EmptyBooking";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
@@ -12,14 +13,14 @@ const MyBookings = async () => {
         headers: await headers() // you need to pass the headers object.
     })
     const { token } = await auth.api.getToken({
-        headers:await headers()
+        headers: await headers()
     })
-    
+
     const userId = session?.user?.id
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings/${userId}`, {
-            headers:{
-                authorization: `Bearer ${token}`
-            }
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     })
     const bookings = await res.json()
 
@@ -40,7 +41,8 @@ const MyBookings = async () => {
                 </div>
 
                 {/* Booking Cards */}
-                <div className="space-y-8">
+                {
+                    bookings.length===0?<EmptyBooking/>:<div className="space-y-8">
                     {bookings.map((booking) => (
                         <div
                             key={booking._id}
@@ -112,6 +114,7 @@ const MyBookings = async () => {
                         </div>
                     ))}
                 </div>
+                }
             </div>
         </div>
     );

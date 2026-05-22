@@ -6,6 +6,7 @@ import { Avatar, Button, Dropdown, Label } from "@heroui/react";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const ProfileDropdown = () => {
   const { data: session } = authClient.useSession()
@@ -15,6 +16,7 @@ const ProfileDropdown = () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
+          toast.success('Logout Seccesful')
           router.push("/login"); // redirect to login page
         },
       },

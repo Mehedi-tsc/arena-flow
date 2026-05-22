@@ -2,6 +2,7 @@
 
 import { DeleteFacilities } from "@/components/DeleteFacilities";
 import { EditFacilities } from "@/components/EditFacilities";
+import EmptyFacilities from "@/components/manageFacilities/EmptyFacilities";
 
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -42,7 +43,8 @@ const ManageFacilities = async () => {
                 </div>
 
                 {/* Cards */}
-                <div className="space-y-8">
+                {
+                    facilities.length===0?<EmptyFacilities/>:<div className="space-y-8">
                     {facilities.map((facility) => (
                         <div
                             key={facility._id}
@@ -122,6 +124,7 @@ const ManageFacilities = async () => {
                         </div>
                     ))}
                 </div>
+                }
             </div>
         </div>
 
