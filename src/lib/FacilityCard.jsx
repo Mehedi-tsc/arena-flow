@@ -1,28 +1,31 @@
-'use client'
 import Image from "next/image";
 import Link from "next/link";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdWatchLater } from "react-icons/md";
-import { authClient } from "./auth-client";
+import { auth } from "./auth";
+import { headers } from "next/headers";
 
 
-const FacilityCard = ({ facility }) => {
-    const { data: session } = authClient.useSession()
+
+const FacilityCard = async({ facility }) => {
+    const session = await auth.api.getSession({
+        headers: await headers() // you need to pass the headers object.
+    })
     const user = session?.user
-    
+
     return (
         <div>
             <div className="rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-200 lg:h-130 ">
 
                 {/* Image */}
                 <div className="relative">
-                   <Image
-                   className="h-65 w-full"
-                   src={facility.image}
-                   alt={facility.facilityName}
-                   width={400}
-                   height={300}
-                   />
+                    <Image
+                        className="h-65 w-full"
+                        src={facility.image}
+                        alt={facility.facilityName}
+                        width={400}
+                        height={300}
+                    />
 
                     {/* Facility Type */}
                     <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
@@ -62,7 +65,7 @@ const FacilityCard = ({ facility }) => {
                     </div>
 
                     {/* Button */}
-                    {user?<Link href={`/facility/${facility._id}`}><button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition duration-300">
+                    {user ? <Link href={`/facility/${facility._id}`}><button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition duration-300">
                         Book Now
                     </button></Link> : <Link href={'/login'}><button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition duration-300">
                         Book Now

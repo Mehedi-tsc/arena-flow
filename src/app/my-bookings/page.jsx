@@ -11,8 +11,16 @@ const MyBookings = async () => {
     const session = await auth.api.getSession({
         headers: await headers() // you need to pass the headers object.
     })
+    const { token } = await auth.api.getToken({
+        headers:await headers()
+    })
+    
     const userId = session?.user?.id
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings/${userId}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings/${userId}`, {
+            headers:{
+                authorization: `Bearer ${token}`
+            }
+    })
     const bookings = await res.json()
 
 
@@ -40,7 +48,7 @@ const MyBookings = async () => {
                         >
 
                             {/* Image */}
-                            <div className="relative w-full lg:w-80">
+                            <div className="relative w-full lg:w-80 h-70">
                                 <Image
                                     className="h-full w-full"
                                     src={booking.image}
@@ -68,28 +76,28 @@ const MyBookings = async () => {
                                     <div className="space-y-2 text-gray-700">
                                         <p>
                                             <span className="font-semibold">
-                                                Booking Date: 
-                                             </span>{" "}
+                                                Booking Date:
+                                            </span>{" "}
                                             {booking.bookingDate}
                                         </p>
 
                                         <p>
                                             <span className="font-semibold">
-                                                Time Slot: 
-                                             </span>{" "}
+                                                Time Slot:
+                                            </span>{" "}
                                             {booking.timeSlot}
                                         </p>
 
                                         <p>
                                             <span className="font-semibold">
-                                                Hours: 
-                                             </span> {" "}
-                                             {booking.hours} Hours
+                                                Hours:
+                                            </span> {" "}
+                                            {booking.hours} Hours
                                         </p>
 
                                         <p>
                                             <span className="font-semibold">
-                                                Total Price: 
+                                                Total Price:
                                             </span>{" "}
                                             {booking.totalPrice}
                                         </p>
@@ -98,7 +106,7 @@ const MyBookings = async () => {
 
                                 {/* Cancel Button */}
                                 <div>
-                                    <BookingCanel booking={booking}/>
+                                    <BookingCanel booking={booking} />
                                 </div>
                             </div>
                         </div>

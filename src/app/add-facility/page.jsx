@@ -19,16 +19,21 @@ const AddFacilitiesPage = () => {
   const { data: session } = authClient.useSession()
   const ownerEmail = session?.user?.email
   const router = useRouter();
+  
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const facilitiesData = {...Object.fromEntries(formData.entries()), ownerEmail}
     // facilitiesData.ownerEmail= ownerEmail;
+    const { data } = await authClient.token()
+    
     
     const res =await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities`,{
       method:"POST",
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${data.token}`
+        
       },
       body: JSON.stringify(facilitiesData),
             

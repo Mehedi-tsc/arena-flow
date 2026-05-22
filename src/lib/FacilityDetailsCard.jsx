@@ -5,29 +5,33 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "./auth-client";
+import { toast } from "react-toastify";
 
 const FacilityBookingCard = ({ facility }) => {
     const { data: session } = authClient.useSession()
     const userId = session?.user?.id
-    const [hours, setHours]= useState("")
-    const totalPrice = Number(hours || 0)*facility.price
+    const [hours, setHours] = useState("")
+    const totalPrice = Number(hours || 0) * facility.price
 
     const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const bookingData = {...Object.fromEntries(formData.entries()), status:"pending", userId: userId, image:facility.image}
-        
+        const bookingData = { ...Object.fromEntries(formData.entries()), status: "pending", userId: userId, image: facility.image }
 
+        const {data} = await  authClient.token()
 
-        const res =await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings`,{
-          method:"POST",
-          headers:{
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(bookingData),
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${data.token}`
+
+            },
+            body: JSON.stringify(bookingData),
 
         })
         const result = await res.json()
+        toast.success('Booing succesfull')
         redirect('/my-bookings')
         return result;
     };

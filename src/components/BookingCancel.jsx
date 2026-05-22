@@ -1,14 +1,17 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { toast } from "react-toastify";
 
 export function BookingCanel({ booking }) {
     const handelCancel = async () => {
+        const {data: bookingData} = await authClient.token()
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings/${booking._id}`, {
             method: "DELETE",
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${bookingData.token}`
             }
         })
         const data = await res.json()

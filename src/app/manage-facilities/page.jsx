@@ -14,8 +14,15 @@ const ManageFacilities = async () => {
         headers: await headers() // you need to pass the headers object.
     })
     const email = session?.user?.email
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    })
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities/${email}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities/${email}`,{
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
     const facilities = await res.json()
     
 
@@ -43,7 +50,7 @@ const ManageFacilities = async () => {
                         >
 
                             {/* Image */}
-                            <div className="relative w-full lg:w-80 h-60">
+                            <div className="relative w-full lg:w-80 h-70 ">
                                 <Image
                                     className="h-full w-full"
                                     src={facility.image}

@@ -1,5 +1,6 @@
 'use client'
 
+import { authClient } from "@/lib/auth-client";
 import {  FloppyDisk } from "@gravity-ui/icons";
 import { Button,  FieldError, Fieldset, Form, Input, Label, Modal, Surface, TextArea, TextField } from "@heroui/react";
 import { useRouter } from "next/navigation";
@@ -13,12 +14,14 @@ export function EditFacilities({facility}) {
     const formData = new FormData(e.currentTarget);
     const facilitiesData = Object.fromEntries(formData.entries())
     
-    
+    const {data} = await authClient.token()
     
     const res =await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities/${facility._id}`,{
       method:"PATCH",
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${data.token}`
+        
       },
       body: JSON.stringify(facilitiesData),
             
@@ -27,8 +30,12 @@ export function EditFacilities({facility}) {
     
     if(result){
         toast.success("Edit facility succesfuly")
+
+        setTimeout(function(){
+            window.location.reload();
+
+        }, 2000)
         
-        router.push('/manage-facilities')
     }
 
     return result;

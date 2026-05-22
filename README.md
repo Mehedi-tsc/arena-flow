@@ -5,7 +5,7 @@ ArenaFlow is a smart sports facility booking platform where users can easily exp
 
 ## Live URL:
 * Client Side: https://arena-flow-five.vercel.app
-* Server Side: 
+* Server Side: https://arena-flow-server.vercel.app
 
 ## Key Features:
 * Authentication & Authorization using Better Auth

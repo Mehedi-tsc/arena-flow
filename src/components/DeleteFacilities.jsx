@@ -1,21 +1,26 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { toast } from "react-toastify";
 
 export function DeleteFacilities({ facility }) {
     const handelDelete = async () => {
+        const {data:deleteData} = await authClient.token()
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities/${facility._id}`, {
             method: "DELETE",
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${deleteData.token}`
             }
         })
         const data = await res.json()
         if (data) {
             toast.success('Delete facility succesfully')
         }
-        window.location.reload();
+        setTimeout(function(){
+            window.location.reload();
+        }, 2000)
     }
 
     return (
