@@ -31,7 +31,7 @@ const FacilityBookingCard = ({ facility }) => {
 
         })
         const result = await res.json()
-        toast.success('Booing succesfull')
+        toast.success('Booking succesfull')
         redirect('/my-bookings')
         return result;
     };
