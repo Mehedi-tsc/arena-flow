@@ -14,6 +14,7 @@ import {
   TextField,
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 
 
@@ -21,27 +22,33 @@ const AddFacilitiesPage = () => {
   const { data: session } = authClient.useSession()
   const ownerEmail = session?.user?.email
   const router = useRouter();
-  
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const facilitiesData = {...Object.fromEntries(formData.entries()), ownerEmail}
+    const facilitiesData = { ...Object.fromEntries(formData.entries()), ownerEmail }
     // facilitiesData.ownerEmail= ownerEmail;
     const { data } = await authClient.token()
-    
-    
-    const res =await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities`,{
-      method:"POST",
-      headers:{
+
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/facilities`, {
+      method: "POST",
+      headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${data.token}`
-        
+
       },
       body: JSON.stringify(facilitiesData),
-            
+
     })
     const result = await res.json()
-    router.push('/all-facilities')
+    if (result) {
+      toast.success("Add facilities succesfully")
+      setTimeout(function () {
+        router.push('/all-facilities');
+      },1500);
+    }
+
     return result;
   };
   return (
