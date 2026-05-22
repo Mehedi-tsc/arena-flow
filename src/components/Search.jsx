@@ -6,15 +6,16 @@ import { useEffect, useState } from "react";
 
 const Search = () => {
     const searchParams = useSearchParams()
-    const [search, setSearch] = useState("")
+    // const [search, setSearch] = useState("")
     const router = useRouter()
 
     
 
-    const handleSearch = () => {
+    const handleSearch = (e) => {
         const params = new URLSearchParams(searchParams.toString());
-        if (search) {
-            params.set("search", search)
+        if (e.target.value) {
+            // params.set("search", search)
+            params.set("search", e.target.value)
         } else {
             params.delete("search")
         }
@@ -28,17 +29,19 @@ const Search = () => {
             <input
                 type="text"
                 placeholder="Search facility..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                defaultValue={searchParams.get("search") || ""}
+                onChange={handleSearch}
+                // value={search}
+                // onChange={(e) => setSearch(e.target.value)}
                 className="border border-gray-300 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <button
+            {/* <button
                 onClick={handleSearch}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-medium transition"
             >
                 Search
-            </button>
+            </button> */}
 
         </div>
     );

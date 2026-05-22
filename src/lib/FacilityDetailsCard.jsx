@@ -18,7 +18,7 @@ const FacilityBookingCard = ({ facility }) => {
         const formData = new FormData(e.currentTarget);
         const bookingData = { ...Object.fromEntries(formData.entries()), status: "pending", userId: userId, image: facility.image }
 
-        const {data} = await  authClient.token()
+        const { data } = await authClient.token()
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/bookings`, {
             method: "POST",
@@ -39,7 +39,11 @@ const FacilityBookingCard = ({ facility }) => {
 
     return (
         <div className="py-20 bg-gray-100 min-h-screen">
+
             <div className="max-w-7xl mx-auto px-6">
+                <h1 className="text-3xl font-bold mb-5">
+                    Facility Details and Booking Form
+                </h1>
 
                 {/* Main Card */}
                 <div className="bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
